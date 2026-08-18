@@ -1,5 +1,5 @@
-## SRX-1 — policies in the original lab order, before the final fix.
-## The order below is intentionally retained to document the troubleshooting outcome.
+## SRX-1 — policies added for the lab.
+## default-deny already existed on the device and is intentionally not included here.
 set security zones security-zone trust address-book address LAN-A 192.168.10.0/24
 set security zones security-zone untrust address-book address LAN-B 192.168.20.0/24
 set security policies from-zone trust to-zone untrust policy default-permit match source-address any
@@ -10,10 +10,6 @@ set security policies from-zone trust to-zone untrust policy LAN-A-TO-LAN-B matc
 set security policies from-zone trust to-zone untrust policy LAN-A-TO-LAN-B match destination-address LAN-B
 set security policies from-zone trust to-zone untrust policy LAN-A-TO-LAN-B match application any
 set security policies from-zone trust to-zone untrust policy LAN-A-TO-LAN-B then permit
-set security policies from-zone untrust to-zone trust policy default-deny match source-address any
-set security policies from-zone untrust to-zone trust policy default-deny match destination-address any
-set security policies from-zone untrust to-zone trust policy default-deny match application any
-set security policies from-zone untrust to-zone trust policy default-deny then deny
 set security policies from-zone untrust to-zone trust policy LAN-B-TO-LAN-A match source-address LAN-B
 set security policies from-zone untrust to-zone trust policy LAN-B-TO-LAN-A match destination-address LAN-A
 set security policies from-zone untrust to-zone trust policy LAN-B-TO-LAN-A match application any
