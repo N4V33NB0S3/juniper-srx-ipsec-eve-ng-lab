@@ -1,7 +1,7 @@
-## SRX-2 / LAN-B baseline. Replace all <...> values; never commit a real PSK.
+## SRX-2 / LAN-B baseline. Never commit a real PSK.
 ## Assumes ge-0/0/0 is WAN/untrust and ge-0/0/1 is LAN/trust.
 set system host-name SRX-2
-set interfaces ge-0/0/0 unit 0 family inet address <SRX2_WAN_IP>/<WAN_PREFIX>
+set interfaces ge-0/0/0 unit 0 family inet address 203.0.114.2/30
 set interfaces ge-0/0/1 unit 0 family inet address 192.168.20.1/24
 set interfaces st0 unit 0 family inet
 set security zones security-zone trust interfaces ge-0/0/1.0 host-inbound-traffic system-services ping
@@ -11,7 +11,7 @@ set security zones security-zone untrust interfaces ge-0/0/0.0 host-inbound-traf
 set security zones security-zone untrust interfaces st0.0
 set security zones security-zone trust address-book address LAN-B 192.168.20.0/24
 set security zones security-zone untrust address-book address LAN-A 192.168.10.0/24
-set routing-options static route <SRX1_WAN_IP>/32 next-hop <SRX2_WAN_NEXT_HOP>
+set routing-options static route 203.0.113.1/32 next-hop 203.0.114.1
 set routing-options static route 192.168.10.0/24 next-hop st0.0
 set security ike proposal IKEV2-PROP authentication-method pre-shared-keys
 set security ike proposal IKEV2-PROP authentication-algorithm sha-256
@@ -22,7 +22,7 @@ set security ike policy IKEV2-POL mode main
 set security ike policy IKEV2-POL proposals IKEV2-PROP
 set security ike policy IKEV2-POL pre-shared-key ascii-text "<REPLACE_WITH_STRONG_PSK>"
 set security ike gateway SRX-1-GW ike-policy IKEV2-POL
-set security ike gateway SRX-1-GW address <SRX1_WAN_IP>
+set security ike gateway SRX-1-GW address 203.0.113.1
 set security ike gateway SRX-1-GW external-interface ge-0/0/0.0
 set security ike gateway SRX-1-GW version v2-only
 set security ipsec proposal ESP-AES256-SHA256 protocol esp

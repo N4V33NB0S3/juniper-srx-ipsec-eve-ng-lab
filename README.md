@@ -18,13 +18,15 @@ The ISP router provides underlay reachability between the two SRX untrust interf
 | LAN-A | 192.168.10.0/24 |
 | VPC2 / SRX-2 gateway | 192.168.20.10/24 / 192.168.20.1 |
 | LAN-B | 192.168.20.0/24 |
-| WAN | Replace <SRX1_WAN_IP>, <SRX2_WAN_IP>, and next-hop placeholders |
+| SRX-1 WAN / ISP e0/0 | 203.0.113.1/30 / 203.0.113.2/30 |
+| ISP e0/1 / SRX-2 WAN | 203.0.114.1/30 / 203.0.114.2/30 |
 | PSK | Replace <REPLACE_WITH_STRONG_PSK> locally on both SRXs |
 
 ## Contents
 
     configs/SRX-1.set          LAN-A firewall baseline
     configs/SRX-2.set          LAN-B firewall baseline
+    configs/ISP-router.cfg     Cisco IOSv/IOU ISP underlay configuration
     configs/ISP-router-notes.md  Underlay routing notes
     docs/troubleshooting.md    Packet-path checks and the policy-order lesson
 
@@ -33,7 +35,7 @@ The ISP router provides underlay reachability between the two SRX untrust interf
 1. Build two SRXs, one routed ISP node, and two VPCs in EVE-NG.
 2. Connect VPC1 to SRX-1 ge-0/0/1; connect both SRX ge-0/0/0 interfaces to the ISP; connect VPC2 to SRX-2 ge-0/0/1. Update the config if your interface names differ.
 3. Set VPC1 to 192.168.10.10/24 with gateway 192.168.10.1. Set VPC2 to 192.168.20.10/24 with gateway 192.168.20.1.
-4. Edit each matching set-format config, replacing every placeholder and the PSK.
+4. Edit each matching set-format config, replacing only the PSK placeholder.
 5. Add the ISP underlay routes described in configs/ISP-router-notes.md.
 6. On each SRX: configure; load set terminal; paste the edited config; commit check; commit.
 7. Test a ping from VPC1 to 192.168.20.10 and the reverse from VPC2.
