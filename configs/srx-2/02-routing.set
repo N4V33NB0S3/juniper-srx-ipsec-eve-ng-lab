@@ -1,0 +1,3 @@
+## SRX-2 — underlay and remote-LAN routing (mirrored guide configuration)
+set routing-options static route 0.0.0.0/0 next-hop 203.0.114.1
+set routing-options static route 192.168.10.0/24 next-hop st0.0

@@ -1,0 +1,14 @@
+## SRX-2 — IKEv2 Phase 1 (names match the running lab configuration)
+## Replace the PSK placeholder locally; do not commit a real key.
+set security ike proposal IKE-PROP authentication-method pre-shared-keys
+set security ike proposal IKE-PROP dh-group group14
+set security ike proposal IKE-PROP authentication-algorithm sha-256
+set security ike proposal IKE-PROP encryption-algorithm aes-256-cbc
+set security ike proposal IKE-PROP lifetime-seconds 28800
+set security ike policy IKE-POLICY mode main
+set security ike policy IKE-POLICY proposals IKE-PROP
+set security ike policy IKE-POLICY pre-shared-key ascii-text "<REPLACE_WITH_LAB_PSK>"
+set security ike gateway GW-TO-SRX1 ike-policy IKE-POLICY
+set security ike gateway GW-TO-SRX1 address 203.0.113.1
+set security ike gateway GW-TO-SRX1 external-interface ge-0/0/0.0
+set security ike gateway GW-TO-SRX1 version v2-only

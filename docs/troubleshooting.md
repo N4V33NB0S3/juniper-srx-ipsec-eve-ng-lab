@@ -27,7 +27,7 @@ Correct it with:
     commit
     clear security flow session
 
-Make the equivalent correction on SRX-1 for LAN-B-TO-LAN-A in untrust to trust. The supplied configs already use the correct order.
+Make the equivalent correction on SRX-1 for LAN-B-TO-LAN-A in untrust to trust. The exact commands are in each SRX's 06-policy-order-fix.set file.
 
 Useful checks:
 

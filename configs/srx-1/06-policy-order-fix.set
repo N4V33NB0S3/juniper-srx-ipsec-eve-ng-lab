@@ -1,0 +1,4 @@
+## SRX-1 — final working policy-order correction
+## Load this after 05-security-policies-original-order.set.
+insert security policies from-zone untrust to-zone trust policy LAN-B-TO-LAN-A before policy default-deny
+commit

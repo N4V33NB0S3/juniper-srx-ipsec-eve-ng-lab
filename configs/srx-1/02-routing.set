@@ -1,0 +1,3 @@
+## SRX-1 — underlay and remote-LAN routing (from the lab guide)
+set routing-options static route 0.0.0.0/0 next-hop 203.0.113.2
+set routing-options static route 192.168.20.0/24 next-hop st0.0

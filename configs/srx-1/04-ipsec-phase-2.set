@@ -1,0 +1,11 @@
+## SRX-1 — IPsec Phase 2 (from the lab guide)
+set security ipsec proposal IPSEC-PROP protocol esp
+set security ipsec proposal IPSEC-PROP authentication-algorithm hmac-sha-256-128
+set security ipsec proposal IPSEC-PROP encryption-algorithm aes-256-cbc
+set security ipsec proposal IPSEC-PROP lifetime-seconds 3600
+set security ipsec policy IPSEC-POL perfect-forward-secrecy keys group14
+set security ipsec policy IPSEC-POL proposals IPSEC-PROP
+set security ipsec vpn VPN-TO-SRX2 bind-interface st0.0
+set security ipsec vpn VPN-TO-SRX2 ike gateway GW-TO-SRX2
+set security ipsec vpn VPN-TO-SRX2 ike ipsec-policy IPSEC-POL
+set security ipsec vpn VPN-TO-SRX2 establish-tunnels immediately

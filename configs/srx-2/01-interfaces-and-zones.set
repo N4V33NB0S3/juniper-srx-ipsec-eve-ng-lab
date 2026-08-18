@@ -1,0 +1,10 @@
+## SRX-2 — interfaces and zones (mirrored guide configuration)
+set interfaces ge-0/0/0 unit 0 family inet address 203.0.114.2/30
+set interfaces ge-0/0/1 unit 0 family inet address 192.168.20.1/24
+set interfaces st0 unit 0 family inet address 10.10.10.2/30
+set security zones security-zone untrust interfaces ge-0/0/0.0
+set security zones security-zone untrust interfaces st0.0
+set security zones security-zone trust interfaces ge-0/0/1.0
+set security zones security-zone trust host-inbound-traffic system-services all
+set security zones security-zone trust host-inbound-traffic protocols all
+set security zones security-zone untrust host-inbound-traffic system-services ike

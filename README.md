@@ -24,9 +24,11 @@ The ISP router provides underlay reachability between the two SRX untrust interf
 
 ## Contents
 
-    configs/SRX-1.set          LAN-A firewall baseline
-    configs/SRX-2.set          LAN-B firewall baseline
-    configs/ISP-router.cfg     Cisco IOSv/IOU ISP underlay configuration
+    configs/srx-1/             SRX-1 configuration, divided by area
+    configs/srx-2/             SRX-2 configuration, divided by area
+    configs/srx-1/06-policy-order-fix.set  SRX-1 final working correction
+    configs/srx-2/06-policy-order-fix.set  SRX-2 final working correction
+    configs/ISP-router.cfg     Cisco IOSv/IOS-L3 ISP configuration
     configs/ISP-router-notes.md  Underlay routing notes
     docs/troubleshooting.md    Packet-path checks and the policy-order lesson
 
@@ -35,9 +37,9 @@ The ISP router provides underlay reachability between the two SRX untrust interf
 1. Build two SRXs, one routed ISP node, and two VPCs in EVE-NG.
 2. Connect VPC1 to SRX-1 ge-0/0/1; connect both SRX ge-0/0/0 interfaces to the ISP; connect VPC2 to SRX-2 ge-0/0/1. Update the config if your interface names differ.
 3. Set VPC1 to 192.168.10.10/24 with gateway 192.168.10.1. Set VPC2 to 192.168.20.10/24 with gateway 192.168.20.1.
-4. Edit each matching set-format config, replacing only the PSK placeholder.
-5. Add the ISP underlay routes described in configs/ISP-router-notes.md.
-6. On each SRX: configure; load set terminal; paste the edited config; commit check; commit.
+4. For each SRX, load the numbered files in order: interfaces/zones, routing, IKE, IPsec, then the original policy-order file. Replace only the PSK placeholder.
+5. Configure the ISP with configs/ISP-router.cfg.
+6. Load the final 06-policy-order-fix.set file on each SRX. This preserves the lab's troubleshooting story while leaving the device in its final working state.
 7. Test a ping from VPC1 to 192.168.20.10 and the reverse from VPC2.
 
 ## Validation
@@ -58,7 +60,7 @@ Junos evaluates security policies from top to bottom. A broad default-deny befor
     Incorrect: default-deny -> LAN-A-TO-LAN-B
     Correct:   LAN-A-TO-LAN-B -> default-deny
 
-The provided configs already place specific permits first. See docs/troubleshooting.md for the confirmed troubleshooting outcome.
+The original-order policy files intentionally show the initial problem. Apply each SRX's 06-policy-order-fix.set to move the specific permit above default-deny. See docs/troubleshooting.md for the confirmed troubleshooting outcome.
 
 ## Push to GitHub
 
