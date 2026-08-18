@@ -1,0 +1,12 @@
+# Never publish device backups, keys, captures, or environment-specific configs.
+*.backup
+*.bak
+*.jcfg
+*.key
+*.pem
+*.pfx
+*.log
+*.pcap
+secrets/
+local/
+*.unl.bak
