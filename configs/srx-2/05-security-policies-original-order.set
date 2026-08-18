@@ -1,11 +1,7 @@
 ## SRX-2 — policies added for the lab.
-## default-deny already existed on the device and is intentionally not included here.
+## default-permit and default-deny already existed on the device and are intentionally not included here.
 set security zones security-zone trust address-book address LAN-B 192.168.20.0/24
 set security zones security-zone untrust address-book address LAN-A 192.168.10.0/24
-set security policies from-zone trust to-zone untrust policy default-permit match source-address any
-set security policies from-zone trust to-zone untrust policy default-permit match destination-address any
-set security policies from-zone trust to-zone untrust policy default-permit match application any
-set security policies from-zone trust to-zone untrust policy default-permit then permit
 set security policies from-zone trust to-zone untrust policy LAN-B-TO-LAN-A match source-address LAN-B
 set security policies from-zone trust to-zone untrust policy LAN-B-TO-LAN-A match destination-address LAN-A
 set security policies from-zone trust to-zone untrust policy LAN-B-TO-LAN-A match application any

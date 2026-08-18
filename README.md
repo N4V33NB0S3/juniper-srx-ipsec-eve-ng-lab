@@ -60,7 +60,7 @@ Junos evaluates security policies from top to bottom. A broad default-deny befor
     Incorrect: default-deny -> LAN-A-TO-LAN-B
     Correct:   LAN-A-TO-LAN-B -> default-deny
 
-The policy files contain only the policies added for this lab; the pre-existing default-deny is intentionally omitted. Apply each SRX's 06-policy-order-fix.set to move the specific permit above that existing default-deny. See docs/troubleshooting.md for the confirmed troubleshooting outcome.
+The policy files contain only the policies added for this lab; pre-existing default-permit and default-deny policies are intentionally omitted. Apply each SRX's 06-policy-order-fix.set to move the specific permit above that existing default-deny. See docs/troubleshooting.md for the confirmed troubleshooting outcome.
 
 ## Push to GitHub
 
