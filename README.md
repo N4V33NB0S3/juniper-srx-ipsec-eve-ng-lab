@@ -6,15 +6,9 @@ An EVE-NG lab connecting two LANs through an ISP router using an IKEv2, route-ba
 
 ## Topology
 
-    VPC1 (192.168.10.10/24)                 VPC2 (192.168.20.10/24)
-              |                                        |
-       SRX-1 trust                              trust SRX-2
-    LAN-A 192.168.10.0/24                   LAN-B 192.168.20.0/24
-              |                                        |
-       SRX-1 untrust --- ISP / routed WAN --- untrust SRX-2
-                       IKEv2/IPsec over st0.0
+![EVE-NG site-to-site IPsec topology](assets/topology.png)
 
-The ISP router provides only underlay reachability; it does not terminate the VPN.
+The ISP router provides underlay reachability between the two SRX untrust interfaces; it does not terminate the VPN. The route-based IKEv2/IPsec tunnel is bound to `st0.0` on each SRX.
 
 ## Addressing
 
