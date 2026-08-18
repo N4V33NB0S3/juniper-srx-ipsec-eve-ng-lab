@@ -62,6 +62,38 @@ Junos evaluates security policies from top to bottom. A broad default-deny befor
 
 The policy files contain only the policies added for this lab; pre-existing default-permit and default-deny policies are intentionally omitted. Apply each SRX's 06-policy-order-fix.set to move the specific permit above that existing default-deny. See docs/troubleshooting.md for the confirmed troubleshooting outcome.
 
+## Troubleshooting evidence
+
+### Before the policy-order fix
+
+The specific VPN permit policies were below `default-deny`. The hit counts show the broad deny being matched while the permit policy was not reached (or did not receive the expected traffic).
+
+**SRX-2 — `default-deny` hit count: 76**
+
+![SRX-2 policy hit count before the policy-order fix](assets/hitcount-before-srx2.png)
+
+**SRX-1 — `default-deny` hit count: 17; `LAN-B-TO-LAN-A` hit count: 0**
+
+![SRX-1 policy hit count before the policy-order fix](assets/hitcount-before-srx1.png)
+
+### After the policy-order fix
+
+After moving the specific permit policies above `default-deny`, the VPN permit policies receive hits and the catch-all deny remains at zero for the test traffic.
+
+**SRX-2 — `LAN-A-TO-LAN-B` hit count: 11; `default-deny` hit count: 0**
+
+![SRX-2 policy hit count after the policy-order fix](assets/hitcount-after-srx2.png)
+
+**SRX-1 — `LAN-B-TO-LAN-A` hit count: 7; `default-deny` hit count: 0**
+
+![SRX-1 policy hit count after the policy-order fix](assets/hitcount-after-srx1.png)
+
+### Final VPN verification
+
+The final SRX-1 output confirms IKEv2 is up, one IPsec tunnel is active, ESP encryption/decryption counters are increasing with no authentication or decryption errors, the remote-LAN route uses `st0.0`, and flow sessions show the LAN traffic traversing the tunnel.
+
+![SRX-1 IKE, IPsec, route, and flow-session verification](assets/verification-srx1.png)
+
 ## Push to GitHub
 
 Create a new empty GitHub repository, then run this from this folder:
