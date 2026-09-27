@@ -94,19 +94,7 @@ The final SRX-1 output confirms IKEv2 is up, one IPsec tunnel is active, ESP enc
 
 ![SRX-1 IKE, IPsec, route, and flow-session verification](assets/verification-srx1.png)
 
-## Push to GitHub
 
-Create a new empty GitHub repository, then run this from this folder:
-
-    git init
-    git add .
-    git status
-    git commit -m "Add Juniper SRX IPsec EVE-NG lab"
-    git branch -M main
-    git remote add origin https://github.com/<YOUR-USERNAME>/juniper-srx-ipsec-eve-ng-lab.git
-    git push -u origin main
-
-Before the first push, inspect git status and search staged files for the real PSK. Keep device backups and EVE-NG exports outside Git.
 
 ## License
 
